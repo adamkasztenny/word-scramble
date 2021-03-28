@@ -5,7 +5,7 @@ install:
 build:
 		docker build --no-cache -t ${PROJECT} .
 
-start:
+start: build
 		docker run -d -p 8080:8080 ${PROJECT}
 
 start_development:
