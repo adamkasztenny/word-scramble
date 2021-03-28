@@ -8,7 +8,7 @@ build:
 start: build
 		docker run -d -p 8080:8080 ${PROJECT}
 
-start_development:
+start_development: install
 		rake start
 
 test: install
