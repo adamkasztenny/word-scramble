@@ -1,11 +1,17 @@
-install:
-	yarn install
+PROJECT="word-scramble-frontend"
+
+.PHONY: build
+build:
+	docker build --no-cache -t ${PROJECT} .
+
+start: build
+	docker run -d -p 8081:80 ${PROJECT}
 
 start_development: install
 	yarn start
 
-build: install
-	yarn build
+install:
+	yarn install
 
 test: install
-	yarn test --watchAll=false --ci
+	CI=true yarn test --coverage
