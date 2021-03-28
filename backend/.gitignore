@@ -1,0 +1,17 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# rspec failure tracking
+.rspec_status
+
+*.swp
+webrat.log
+
+# Can be found at https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt
+google-10000-english-no-swears.txt
