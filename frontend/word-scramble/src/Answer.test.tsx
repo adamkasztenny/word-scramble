@@ -16,8 +16,7 @@ test("sends the correct answer to the question to the API", async () => {
   answerQuestionCorrectly();
 
   await waitFor(() => screen.getByText("Correct!"));
-  expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/answer", {
-    id: "123",
+  expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/question/123", {
     answer: correctAnswer,
   });
 });
@@ -31,8 +30,7 @@ test("sends an incorrect answer to the question to the API", async () => {
   answerQuestionIncorrectly();
 
   await waitFor(() => screen.getByText("Incorrect"));
-  expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/answer", {
-    id: "123",
+  expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/question/123", {
     answer: incorrectAnswer,
   });
 });

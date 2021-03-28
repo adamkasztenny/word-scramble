@@ -36,8 +36,8 @@ RSpec.describe 'Word Scramble Game API' do
       body_as_json = JSON.parse(response_body)
       id = body_as_json['id']
 
-      answer_body = { id: id, answer: 'some answer' }
-      post('/answer', answer_body.to_json)
+      answer_body = {  answer: 'some answer' }
+      post('/question/' + id, answer_body.to_json)
 
       expect(last_response.status).to eq(200)
       content_type = last_response.headers['Content-Type']
@@ -52,9 +52,9 @@ RSpec.describe 'Word Scramble Game API' do
 
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
-      answer_body = { id: id, answer: 'clearly wrong' }
+      answer_body = { answer: 'clearly wrong' }
 
-      post('/answer', answer_body.to_json)
+      post('/question/' + id, answer_body.to_json)
       expect(last_response.status).to eq(200)
 
       answer_response_as_json = JSON.parse(response_body)
@@ -75,8 +75,8 @@ RSpec.describe 'Word Scramble Game API' do
       points = 0
 
       permutations.each do |permutation|
-        answer_body = { id: id, answer: permutation }
-        post('/answer', answer_body.to_json)
+        answer_body = { answer: permutation }
+        post('/question/' + id, answer_body.to_json)
         expect(last_response.status).to eq(200)
 
         answer_response_as_json = JSON.parse(response_body)
@@ -92,35 +92,35 @@ RSpec.describe 'Word Scramble Game API' do
     end
 
     it 'should indicate that the request is invalid if there is no body' do
-      visit '/answer', :post
+      visit '/question', :post
 
-      expect(last_response.status).to eq(400)
+      expect(last_response.status).to eq(404)
     end
 
     it 'should indicate that the answer is not valid if the question id is not found' do
-      answer_body = { id: 'non-existant-id', answer: 'irrelevant' }
-      post('/answer', answer_body.to_json)
+      answer_body = { answer: 'irrelevant' }
+      post('/question/nonexistent', answer_body.to_json)
 
       expect(last_response.status).to eq(404)
     end
 
     it 'should indicate that the request is invalid if the id is missing' do
-      wrong_body_format = { answer: 'irrelevant' }
-      post('/answer', wrong_body_format.to_json)
+      answer_body = { answer: 'irrelevant' }
+      post('/question', answer_body.to_json)
 
-      expect(last_response.status).to eq(400)
+      expect(last_response.status).to eq(404)
     end
 
     it 'should indicate that the request is invalid if the answer is missing' do
-      wrong_body_format = { id: '123' }
-      post('/answer', wrong_body_format.to_json)
+      wrong_body_format = {}
+      post('/question/123', wrong_body_format.to_json)
 
       expect(last_response.status).to eq(400)
     end
 
     it 'should indicate that the request is invalid if the request JSON is invalid' do
       wrong_body_format = { :garbo => 'true', 'derp' => 'yes' }
-      post('/answer', wrong_body_format.to_json)
+      post('/question/123', wrong_body_format.to_json)
 
       expect(last_response.status).to eq(400)
     end

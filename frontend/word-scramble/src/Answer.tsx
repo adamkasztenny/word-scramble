@@ -26,8 +26,8 @@ function Answer(props: Props) {
     const getResult = async () => {
       try {
         const result = await axios.post<Response>(
-          "http://localhost:8080/answer",
-          { id: id, answer: answer }
+          `http://localhost:8080/question/${id}`,
+          { answer: answer }
         );
         setPoints(result.data.points);
         setCorrect(result.data.correct);

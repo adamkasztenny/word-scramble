@@ -17,16 +17,16 @@ get '/question' do
   JSON.generate(service.ask_question)
 end
 
-post '/answer' do
+post '/question/:id' do
   content_type 'application/json'
 
   body = request.body.read
   return 400 if answer_invalid?(body)
 
   data = JSON.parse(body)
-  return 404 unless service.question_exists?(data['id'])
+  return 404 unless service.question_exists?(params['id'])
 
-  result = service.answer_question(data['id'], data['answer'])
+  result = service.answer_question(params['id'], data['answer'])
   JSON.generate(result)
 end
 
@@ -47,7 +47,7 @@ end
 private
 
 def answer_invalid?(body)
-  body.empty? || body['id'].nil? || body['answer'].nil?
+  body.empty? || body['answer'].nil?
 end
 
 def skip_invalid?(body)
