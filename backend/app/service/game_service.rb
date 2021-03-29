@@ -37,7 +37,7 @@ module Service
     end
 
     def skip_question(id)
-      return unless @answer_repository.exists?(id)
+      return unless question_exists?(id)
 
       word = @answer_repository.get(id)
       @answer_repository.remove(id)
