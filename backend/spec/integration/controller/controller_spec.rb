@@ -36,8 +36,8 @@ RSpec.describe 'Word Scramble Game API' do
       body_as_json = JSON.parse(response_body)
       id = body_as_json['id']
 
-      answer_body = {  answer: 'some answer' }
-      post('/question/' + id, answer_body.to_json)
+      answer_body = { answer: 'some answer' }
+      post("/question/#{id}", answer_body.to_json)
 
       expect(last_response.status).to eq(200)
       content_type = last_response.headers['Content-Type']
@@ -54,7 +54,7 @@ RSpec.describe 'Word Scramble Game API' do
       id = question_as_json['id']
       answer_body = { answer: 'clearly wrong' }
 
-      post('/question/' + id, answer_body.to_json)
+      post("/question/#{id}", answer_body.to_json)
       expect(last_response.status).to eq(200)
 
       answer_response_as_json = JSON.parse(response_body)
@@ -76,7 +76,7 @@ RSpec.describe 'Word Scramble Game API' do
 
       permutations.each do |permutation|
         answer_body = { answer: permutation }
-        post('/question/' + id, answer_body.to_json)
+        post("/question/#{id}", answer_body.to_json)
         expect(last_response.status).to eq(200)
 
         answer_response_as_json = JSON.parse(response_body)
@@ -133,7 +133,7 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      delete('/question/' + id)
+      delete("/question/#{id}")
 
       expect(last_response.status).to eq(200)
       content_type = last_response.headers['Content-Type']
@@ -149,12 +149,12 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      delete('/question/' + id)
+      delete("/question/#{id}")
 
       expect(last_response.status).to eq(200)
 
       answer_body = { answer: 'irrelevant' }
-      post('/question/' + id, answer_body.to_json)
+      post("/question/#{id}", answer_body.to_json)
 
       expect(last_response.status).to eq(404)
     end
@@ -165,7 +165,7 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      delete('/question/' + id)
+      delete("/question/#{id}")
 
       expect(last_response.status).to eq(200)
       body_as_json = JSON.parse(response_body)
