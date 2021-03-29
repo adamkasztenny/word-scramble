@@ -1,0 +1,17 @@
+version: '3'
+services:
+  word-scramble-backend:
+    container_name: word-scramble-backend
+    build: ./backend
+    ports:
+      - "8080:8080"
+
+  word-scramble-frontend:
+    container_name: word-scramble-frontend
+    build: ./frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - word-scramble-backend
+    links:
+      - word-scramble-backend
