@@ -4,7 +4,7 @@ import Answer from "./Answer";
 import Timer from "./Timer";
 import React, { useState } from "react";
 
-function App() {
+function WordScramble() {
   const [questionId, setQuestionId] = useState("");
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -47,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default WordScramble;
