@@ -30,17 +30,12 @@ post '/question/:id' do
   JSON.generate(result)
 end
 
-post '/skip' do
+delete '/question/:id' do
   content_type 'application/json'
 
-  body = request.body.read
-  return 400 if skip_invalid?(body)
+  return 404 unless service.question_exists?(params['id'])
 
-  data = JSON.parse(body)
-  return 404 unless service.question_exists?(data['id'])
-
-  result = service.skip_question(data['id'])
-
+  result = service.skip_question(params['id'])
   JSON.generate(result)
 end
 
@@ -48,8 +43,4 @@ private
 
 def answer_invalid?(body)
   body.empty? || body['answer'].nil?
-end
-
-def skip_invalid?(body)
-  body.empty? || body['id'].nil?
 end

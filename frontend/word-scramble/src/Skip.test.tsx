@@ -8,7 +8,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const questionId = "some-id";
 
 test("skips the current question if the button was clicked", async () => {
-  mockedAxios.get.mockImplementation(() =>
+  mockedAxios.delete.mockImplementation(() =>
     Promise.resolve({ data: { points: -1 } })
   );
 
@@ -16,9 +16,7 @@ test("skips the current question if the button was clicked", async () => {
   const skipButton = screen.getByText(/Skip/);
   skipButton.click();
 
-  expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/skip", {
-    id: questionId,
-  });
+  expect(axios.delete).toHaveBeenCalledWith(`http://localhost:8080/question/${questionId}`);
 });
 
 test("does not skip the current question if the button was not clicked", async () => {
@@ -28,7 +26,7 @@ test("does not skip the current question if the button was not clicked", async (
 });
 
 test("emits the points lost when a question is skipped", async () => {
-  mockedAxios.post.mockImplementation(() =>
+  mockedAxios.delete.mockImplementation(() =>
     Promise.resolve({ data: { points: -10 } })
   );
 

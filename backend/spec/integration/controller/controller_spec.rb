@@ -133,8 +133,7 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      skip_body = { id: id }
-      post('/skip', skip_body.to_json)
+      delete('/question/' + id)
 
       expect(last_response.status).to eq(200)
       content_type = last_response.headers['Content-Type']
@@ -150,13 +149,12 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      skip_body = { id: id }
-      post('/skip', skip_body.to_json)
+      delete('/question/' + id)
 
       expect(last_response.status).to eq(200)
 
-      answer_body = { id: id, answer: 'irrelevant' }
-      post('/answer', answer_body.to_json)
+      answer_body = { answer: 'irrelevant' }
+      post('/question/' + id, answer_body.to_json)
 
       expect(last_response.status).to eq(404)
     end
@@ -167,8 +165,7 @@ RSpec.describe 'Word Scramble Game API' do
       question_as_json = JSON.parse(response_body)
       id = question_as_json['id']
 
-      skip_body = { id: id }
-      post('/skip', skip_body.to_json)
+      delete('/question/' + id)
 
       expect(last_response.status).to eq(200)
       body_as_json = JSON.parse(response_body)
@@ -176,24 +173,16 @@ RSpec.describe 'Word Scramble Game API' do
       expect(body_as_json['points']).to be < 0
     end
 
-    it 'should indicate that the request is invalid if there is no body' do
-      visit '/skip', :post
-
-      expect(last_response.status).to eq(400)
-    end
-
-    it 'should indicate that the skip request is not valid if the question id is not found' do
-      skip_body = { id: 'non-existant-id', answer: 'irrelevant' }
-      post('/skip', skip_body.to_json)
+    it 'should indicate that the request is invalid if there is no question ID provided' do
+      visit '/question', :delete
 
       expect(last_response.status).to eq(404)
     end
 
-    it 'should indicate that the request is invalid if the id is missing' do
-      wrong_body_format = { derp: 'true' }
-      post('/skip', wrong_body_format.to_json)
+    it 'should indicate that the skip request is not valid if the question ID is not found' do
+      delete('/question/non-existant-id')
 
-      expect(last_response.status).to eq(400)
+      expect(last_response.status).to eq(404)
     end
   end
 end
