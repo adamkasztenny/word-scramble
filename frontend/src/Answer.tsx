@@ -55,8 +55,6 @@ function Answer(props: Props) {
         onChange={handleChange}
         className={correct ? "border border-success" : "border border-danger"}
       />
-
-      <div>{correct ? "Correct!" : "Incorrect"}</div>
     </div>
   );
 }
