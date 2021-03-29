@@ -6,7 +6,7 @@ build:
 		docker build --no-cache -t ${PROJECT} .
 
 start: build
-		docker run -d -p 8080:8080 ${PROJECT}
+		docker run -d -p 9090:9090 ${PROJECT}
 
 start_development: install
 		rake start

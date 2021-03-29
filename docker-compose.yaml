@@ -4,13 +4,13 @@ services:
     container_name: word-scramble-backend
     build: ./backend
     ports:
-      - "8080:8080"
+      - "9090:9090"
 
   word-scramble-frontend:
     container_name: word-scramble-frontend
     build: ./frontend
     ports:
-      - "8081:80"
+      - "9091:80"
     depends_on:
       - word-scramble-backend
     links:

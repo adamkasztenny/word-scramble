@@ -16,7 +16,7 @@ test("skips the current question if the button was clicked", async () => {
   const skipButton = screen.getByText(/Skip/);
   skipButton.click();
 
-  expect(axios.delete).toHaveBeenCalledWith(`http://localhost:8080/question/${questionId}`);
+  expect(axios.delete).toHaveBeenCalledWith(`http://localhost:9090/question/${questionId}`);
 });
 
 test("does not skip the current question if the button was not clicked", async () => {

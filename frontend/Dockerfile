@@ -17,4 +17,5 @@ RUN mv nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /
 RUN rm -rf /src
 
-EXPOSE 8081
+EXPOSE 9091
+

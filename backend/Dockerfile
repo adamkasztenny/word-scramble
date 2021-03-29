@@ -12,5 +12,6 @@ ENV APP_ENV=production
 RUN addgroup -S word-scramble && adduser -S word-scramble -G word-scramble
 USER word-scramble
 
-EXPOSE 8080
+EXPOSE 9090
 ENTRYPOINT ["rake", "start"]
+
