@@ -4,7 +4,7 @@ install:
 		bundle install
 
 build:
-		wget https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt
+		wget https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt
 		mv google-10000-english-no-swears.txt app/google-10000-english-no-swears.txt
 		docker build --no-cache -t ${PROJECT} .
 
