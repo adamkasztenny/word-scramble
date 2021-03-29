@@ -14,7 +14,7 @@ function Skip(props: SkipProps) {
 
   const skipQuestion = async () => {
     try {
-      const result = await axios.delete<Response>(`http://localhost:9090/question/${props.questionId}`);
+      const result = await axios.delete<Response>(`/api/question/${props.questionId}`);
       if (result) {
         setPoints(result.data.points);
       }

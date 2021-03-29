@@ -24,7 +24,7 @@ function Question(props: Props) {
     const getScrambledWord = async () => {
       try {
         const result = await axios.get<Response>(
-          "http://localhost:9090/question"
+          "/api/question"
         );
         setQuestionId(result.data.id);
         setId(result.data.id);

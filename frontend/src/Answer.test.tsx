@@ -15,7 +15,7 @@ test("sends the correct answer to the question to the API", async () => {
   render(<Answer id={"123"} setPoints={() => null} />);
   answerQuestionCorrectly();
 
-  expect(axios.post).toHaveBeenCalledWith("http://localhost:9090/question/123", {
+  expect(axios.post).toHaveBeenCalledWith("/api/question/123", {
     answer: correctAnswer,
   });
 });
@@ -28,7 +28,7 @@ test("sends an incorrect answer to the question to the API", async () => {
   render(<Answer id={"123"} setPoints={() => null} />);
   answerQuestionIncorrectly();
 
-  expect(axios.post).toHaveBeenCalledWith("http://localhost:9090/question/123", {
+  expect(axios.post).toHaveBeenCalledWith("/api/question/123", {
     answer: incorrectAnswer,
   });
 });

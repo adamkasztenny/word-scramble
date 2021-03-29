@@ -26,7 +26,7 @@ function Answer(props: Props) {
     const getResult = async () => {
       try {
         const result = await axios.post<Response>(
-          `http://localhost:9090/question/${id}`,
+          `/api/question/${id}`,
           { answer: answer }
         );
         setPoints(result.data.points);
