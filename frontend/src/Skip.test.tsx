@@ -36,9 +36,9 @@ test("emits the points lost when a question is skipped", async () => {
   };
 
   render(<Skip questionId={questionId} setPoints={setPoints} />);
+
   const skipButton = screen.getByText(/Skip/);
   skipButton.click();
-  await waitFor(() => screen.getByText("Skipped!"));
 
-  expect(points).toBe(-10);
+  await waitFor(() => points === -10);
 });
