@@ -5,6 +5,12 @@ require 'json'
 require 'uuid'
 
 RSpec.describe 'Word Scramble Game API' do
+  it 'should include a health check route' do
+    visit '/health'
+
+    expect(last_response.status).to eq(200)
+  end
+
   context 'Generating a scrambled word question' do
     it 'should return a question as JSON' do
       visit '/question'

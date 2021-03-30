@@ -12,6 +12,9 @@ service = Service::GameService.new(
   Persistence::AnswerRepository.new
 )
 
+get '/health' do
+end
+
 get '/question' do
   content_type 'application/json'
   JSON.generate(service.ask_question)
